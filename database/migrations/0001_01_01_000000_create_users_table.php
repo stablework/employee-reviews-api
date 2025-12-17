@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Create users table with API token support for stateless authentication
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -18,6 +19,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            // API token for bearer token authentication in REST API
+            $table->string('api_token', 80)->unique()->nullable();
             $table->timestamps();
         });
 
